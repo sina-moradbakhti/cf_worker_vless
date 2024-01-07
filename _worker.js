@@ -7,7 +7,7 @@ import { connect } from 'cloudflare:sockets';
 // [Mac/Linux] On your Terminal enter the command "uuidgen" and press Enter
 let userID = 'ada32f6a-707a-46fd-80f1-340e825280bb';
 
-const proxyIPs = ['cdn-all.xn--b6gac.eu.org', 'cdn.xn--b6gac.eu.org', 'cdn-b100.xn--b6gac.eu.org', 'edgetunnel.anycast.eu.org', 'cdn.anycast.eu.org'];
+const proxyIPs = ["23.162.136.169"]; // ['cdn-all.xn--b6gac.eu.org', 'cdn.xn--b6gac.eu.org', 'cdn-b100.xn--b6gac.eu.org', 'edgetunnel.anycast.eu.org', 'cdn.anycast.eu.org'];
 let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 
 let dohURL = 'https://sky.rethinkdns.com/1:-Pf_____9_8A_AMAIgE8kMABVDDmKOHTAKg='; // https://cloudflare-dns.com/dns-query or https://dns.google/dns-query
@@ -102,7 +102,7 @@ export default {
 					default:
 						// return new Response('Not found', { status: 404 });
 						// For any other path, reverse proxy to 'www.fmprc.gov.cn' and return the original response
-						url.hostname = 'global.cctv.com';
+						url.hostname = 'www.bing.com';
 						url.protocol = 'https:';
 						request = new Request(url, request);
 						return await fetch(request);
@@ -747,11 +747,11 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
  * @returns {string}
  */
 function getVLESSConfig(userID, hostName) {
-	const wvlessws = `vless://${userID}@skk.moe:8880?encryption=none&security=none&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
-	const pvlesswstls = `vless://${userID}@skk.moe:8443?encryption=none&security=tls&type=ws&host=${hostName}&sni=${hostName}&fp=random&path=%2F%3Fed%3D2048#${hostName}`;
-
-	if (hostName.includes('pages.dev')) {
-		return `
+  const wvlessws = `vless://${userID}@www.visa.com:8880?encryption=none&security=none&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
+  const pvlesswstls = `vless://${userID}@www.visa.com:8443?encryption=none&security=tls&type=ws&host=${hostName}&sni=${hostName}&fp=random&path=%2F%3Fed%3D2048#${hostName}`;
+  
+  if (hostName.includes('pages.dev')) {
+    return `
 ==========================配置详解==============================
 
 ################################################################
@@ -775,8 +775,8 @@ ${pvlesswstls}
 ################################################################
 `;
 
-	} else if (hostName.includes('workers.dev')) {
-		return `
+  } else if (hostName.includes('workers.dev'))  {
+    return `
 ==========================配置详解==============================
 
 ################################################################
@@ -806,8 +806,8 @@ pages方式部署可参考此视频教程：https://youtu.be/McdRoLZeTqg
 
 ################################################################
 `;
-	} else {
-		return `
+  } else {
+    return `
 ==========================配置详解==============================
 
 =====使用自定义域名查看配置，请确认使用的是workers还是pages=====
@@ -848,5 +848,5 @@ ${pvlesswstls}
 跳过证书验证(allowlnsecure)：false
 ################################################################
 `;
-	}
+  }
 }
